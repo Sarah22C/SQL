@@ -1,0 +1,16 @@
+--This is a project where I had to query a database of monthly customer sales.
+
+--1. How many products were sold in Los Angeles in February, and how many of each were sold?
+SELECT Product, SUM(Quantity)
+FROM BIT_DB.FebSales
+WHERE location like '%Los Angeles%'
+GROUP BY Product;
+
+--2. Which location in New York received at least 3 separate orders in January? How many orders did each of those locations receive?
+
+SELECT distinct location, COUNT(orderID)
+FROM BIT_DB.JanSales
+WHERE location LIKE '%NY%'
+AND length(orderID)=6
+GROUP BY location
+HAVING COUNT(orderID)>2;
