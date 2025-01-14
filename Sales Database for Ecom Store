@@ -14,3 +14,19 @@ WHERE location LIKE '%NY%'
 AND length(orderID)=6
 GROUP BY location
 HAVING COUNT(orderID)>2;
+
+--3. What was the average amount spent, averaging in all the customer accounts. (Not how much each account averaged)
+SELECT SUM(quantity*price) /count(cust.acctnum)
+FROM BIT_DB.FebSales Feb
+LEFT JOIN BIT_DB.customers cust
+on Feb.orderid=cust.order_id
+WHERE length(orderid)=6
+AND orderid <> 'Order ID';
+
+--4. What product brought in the most revenue in January and how much revenue did it bring in total?
+SELECT Product, SUM(Quantity*price) AS revenue
+FROM BIT_DB.JanSales
+GROUP BY Product
+ORDER BY revenue desc
+LIMIT 1;
+
